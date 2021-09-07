@@ -21,18 +21,19 @@ module spi_fsm #(
 reg [CMD_WIDTH-1:0]  cmd_data_buffer;
 reg [3:0]            spi_clk_cnt    ;
 reg [3:0]            spi_bit_cnt    ;
+wire                 spi_clk_cnt_en ;
 reg [DATA_WIDTH-1:0] miso_buffer    ;
 reg [6:0]            delay_cnt      ;
 
 reg [2:0] fsm_cs;
 reg [2:0] fsm_ns;
 
-localparam IDLE           = 4'd0,
-           W_SEND         = 4'd1,
-           R_SEND_CMD     = 4'd2,
-           R_DELAY        = 4'd3,
-           R_REV_DATA     = 4'd4,
-           SEND_READ_DATA = 4'd5;
+localparam IDLE           = 3'd0,
+           W_SEND         = 3'd1,
+           R_SEND_CMD     = 3'd2,
+           R_DELAY        = 3'd3,
+           R_REV_DATA     = 3'd4,
+           SEND_READ_DATA = 3'd5;
 
 always @(posedge clk or negedge rst_n) begin
     if(!rst_n)   
